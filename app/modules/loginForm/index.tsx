@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
@@ -56,6 +56,7 @@ export default function LoginForm() {
     },
     resolver: zodResolver(FormData),
   });
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const dispatch = useDispatch();
   const onLogin = (userName: string, pass: string) =>
     dispatch(loginActions.requestLogin(userName, pass));
@@ -138,7 +139,13 @@ export default function LoginForm() {
               label="Password"
               onBlur={onBlur}
               style={[{marginTop: size.moderateScale(10)}]}
-              secureTextEntry
+              secureTextEntry={secureTextEntry}
+              right={
+                <TextInput.Icon
+                  onPress={() => setSecureTextEntry(!secureTextEntry)}
+                  icon={secureTextEntry ? 'eye' : 'eye-off'}
+                />
+              }
               textContentType="password"
               onChangeText={value => handleOnChangeText(value, onChange)}
               error={errors.password && true}

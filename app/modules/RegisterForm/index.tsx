@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Alert, StyleSheet, View} from 'react-native';
 import {TextInput, Button, Switch, HelperText, Text} from 'react-native-paper';
 
@@ -52,7 +52,7 @@ const RegisterForm: React.FC<{changeTab: () => void}> = ({
     },
     resolver: zodResolver(FormData),
   });
-
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const dispatch = useDispatch();
   const onSubmit = (data: FormData) => {
     console.log(data);
@@ -177,8 +177,14 @@ const RegisterForm: React.FC<{changeTab: () => void}> = ({
               value={value}
               label="Password"
               onBlur={onBlur}
-              secureTextEntry
+              secureTextEntry={secureTextEntry}
               textContentType="password"
+              right={
+                <TextInput.Icon
+                  onPress={() => setSecureTextEntry(!secureTextEntry)}
+                  icon={secureTextEntry ? 'eye' : 'eye-off'}
+                />
+              }
               onChangeText={value => handleOnChangeText(value, onChange)}
               error={errors.password && true}
             />
