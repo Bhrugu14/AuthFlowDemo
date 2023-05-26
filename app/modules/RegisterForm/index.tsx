@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import {TextInput, Button, Switch, HelperText, Text} from 'react-native-paper';
 
 import {useForm, Controller} from 'react-hook-form';
@@ -31,7 +31,11 @@ const FormData = z.object({
 
 type FormData = z.infer<typeof FormData>;
 
-const RegisterForm: React.FC = () => {
+const RegisterForm: React.FC<{changeTab: () => void}> = ({
+  changeTab,
+}: {
+  changeTab: () => void;
+}) => {
   const {
     control,
     handleSubmit,
@@ -61,6 +65,19 @@ const RegisterForm: React.FC = () => {
         data.phone,
       ),
     );
+    setTimeout(() => {
+      Alert.alert(
+        'Registered Successfully',
+        'User Registered Successfully. go to sign in tab to login',
+        [
+          {
+            text: 'Go To SignIn',
+            onPress: () => changeTab(),
+            style: 'default',
+          },
+        ],
+      );
+    }, 200);
   };
 
   const handleOnChangeText = (

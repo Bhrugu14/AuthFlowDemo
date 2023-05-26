@@ -29,7 +29,11 @@ const Login: React.FC = () => {
               </Button>
             </View>
           </Card>
-          {sliderIndex === 0 ? <LoginForm /> : <RegisterForm />}
+          {sliderIndex === 0 ? (
+            <LoginForm />
+          ) : (
+            <RegisterForm changeTab={() => setSliderIndex(0)} />
+          )}
         </Card>
       </View>
     </KeyboardAwareScrollView>

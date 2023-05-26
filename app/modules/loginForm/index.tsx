@@ -151,7 +151,7 @@ export default function LoginForm() {
       ) : null}
       <Button
         icon="login"
-        mode="elevated"
+        mode="contained"
         disabled={isValid ? false : true}
         style={styles.button}
         onPress={handleSubmit(onSubmit)}>
